@@ -16,6 +16,7 @@
     "drop_datetime": "2026-11-07T10:00:00+00:00",
     "waitlist_tag": "dbc-waitlist",
     "lock_drop_products": true,
-    "early_access_open": false
+    "early_access_open": false,
+    "drop_collection": "daily-bread-club"
   }
 }
