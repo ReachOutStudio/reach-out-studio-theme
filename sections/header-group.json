@@ -11,18 +11,10 @@
             "text": "Daily Bread Club — give us this day. Waitlist open.",
             "link": "shopify://pages/daily-bread-club"
           }
-        },
-        "msg2": {
-          "type": "message",
-          "settings": {
-            "text": "Free UK delivery over £75",
-            "link": ""
-          }
         }
       },
       "block_order": [
-        "msg1",
-        "msg2"
+        "msg1"
       ],
       "settings": {}
     },
