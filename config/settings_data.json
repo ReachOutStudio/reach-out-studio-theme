@@ -17,8 +17,5 @@
     "waitlist_tag": "dbc-waitlist",
     "lock_drop_products": true,
     "early_access_open": false
-  },
-  "presets": {
-    "Default": {}
   }
 }
