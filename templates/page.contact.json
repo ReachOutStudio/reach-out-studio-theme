@@ -20,14 +20,14 @@
           "type": "question",
           "settings": {
             "question": "When will my order arrive?",
-            "answer": "<p>Every piece is made to order for you, so please allow 3–7 working days for production. UK delivery then takes 2–5 working days. You'll get a tracking link by email as soon as your order ships.</p>"
+            "answer": "<p>Every piece is made to order for you, so please allow 2–6 working days for us to make it. UK delivery then takes 7–15 working days, and it's free on orders over £120. You'll get a tracking link by email as soon as your order ships.</p>"
           }
         },
         "q2": {
           "type": "question",
           "settings": {
             "question": "Do you ship outside the UK?",
-            "answer": "<p>Yes, we ship to most countries. Delivery times and costs are shown at checkout before you pay.</p>"
+            "answer": "<p>Yes, we ship to most countries. International delivery usually takes 8–20 working days after your piece is made, and exact costs are shown at checkout before you pay. Import duties or taxes may apply outside the UK.</p>"
           }
         },
         "q3": {
