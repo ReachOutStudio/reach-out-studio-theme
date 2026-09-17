@@ -87,7 +87,8 @@
     "refresh": "The drop is live — refresh the page to shop.",
     "size_guide": "Size guide",
     "sold_out": "Sold out",
-    "unavailable": "Unavailable"
+    "unavailable": "Unavailable",
+    "size_guide_note": "Garment measurements, taken flat. For a relaxed fit, size up."
   },
   "sections": {
     "announcement": {
@@ -131,6 +132,21 @@
       "first_name": "First name",
       "legal": "By joining you agree to receive emails from Reach Out Studio. Unsubscribe anytime.",
       "success": "You're in. Your seat is saved."
+    },
+    "contact": {
+      "email_us": "Email",
+      "response": "We reply",
+      "error": "Please check the highlighted fields and try again.",
+      "name": "Name",
+      "email": "Email",
+      "order": "Order number (optional)",
+      "topic": "Topic",
+      "topic_order": "My order",
+      "topic_sizing": "Sizing",
+      "topic_returns": "Damaged or faulty item",
+      "topic_club": "Daily Bread Club",
+      "topic_other": "Something else",
+      "message": "Message"
     }
   }
 }
