@@ -1,0 +1,29 @@
+{% doc %}
+  Outputs "true" when the product belongs to the drop collection and the drop is still locked.
+  Capture the output: {% capture is_locked %}{% render 'drop-locked', product: product %}{% endcapture %}
+
+  @param {product} product - Product to check
+
+  @example
+  {% capture is_locked %}{% render 'drop-locked', product: product %}{% endcapture %}
+{% enddoc %}
+
+{%- liquid
+  assign result = false
+  if settings.lock_drop_products and settings.drop_collection != blank
+    assign product_collections = product.collections | map: 'handle'
+    if product_collections contains settings.drop_collection.handle
+      assign now_s = 'now' | date: '%s' | plus: 0
+      assign drop_s = settings.drop_datetime | date: '%s' | plus: 0
+      if drop_s > now_s
+        assign result = true
+        if settings.early_access_open and customer
+          if customer.tags contains settings.waitlist_tag
+            assign result = false
+          endif
+        endif
+      endif
+    endif
+  endif
+  echo result
+-%}

@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "settings": {}
+    },
+    "more": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Keep going",
+        "heading": "More from the studio",
+        "limit": 4,
+        "columns": 4,
+        "show_link": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "more"
+  ]
+}

@@ -1,0 +1,174 @@
+<div class="hero hero--{{ section.settings.height }} full-width{% if section.settings.overlap_header %} hero--overlap{% endif %}" style="--overlay: {{ section.settings.overlay | divided_by: 100.0 }}; --focal: {{ section.settings.image.presentation.focal_point | default: 'center' }}">
+  <div class="hero__media">
+    {%- if section.settings.video != blank -%}
+      {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, image_size: '2400x', class: 'hero__video' }}
+    {%- elsif section.settings.image -%}
+      {{ section.settings.image | image_url: width: 3000 | image_tag: loading: 'eager', fetchpriority: 'high', sizes: '100vw', widths: '750, 1100, 1500, 2000, 2600, 3000', class: 'hero__img' }}
+      {%- if section.settings.image_mobile -%}
+        {{ section.settings.image_mobile | image_url: width: 1200 | image_tag: loading: 'eager', sizes: '100vw', widths: '600, 900, 1200', class: 'hero__img hero__img--mobile' }}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg hero__img' }}
+    {%- endif -%}
+  </div>
+
+  <div class="hero__content hero__content--{{ section.settings.position }}">
+    {% content_for 'blocks' %}
+  </div>
+
+  {%- if section.settings.show_scroll -%}
+    <span class="hero__scroll eyebrow" aria-hidden="true">{{ 'sections.hero.scroll' | t }}</span>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .hero {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    color: #fff;
+    --color-foreground: #fff;
+    --color-background: #1e1814;
+    --color-border: rgb(255 255 255 / 0.3);
+  }
+  .hero--full { min-height: 100svh; }
+  .hero--large { min-height: 85svh; }
+  .hero--medium { min-height: 60svh; }
+  .hero__media,
+  .hero__content {
+    grid-area: 1 / 1;
+  }
+  .hero__media {
+    position: relative;
+    background: #2b211c;
+  }
+  .hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(20 15 12 / calc(var(--overlay) * 0.6)) 0%, rgb(20 15 12 / var(--overlay)) 100%);
+  }
+  .hero__img,
+  .hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--focal);
+    animation: hero-zoom 14s var(--ease) both;
+  }
+  .hero__img--mobile {
+    display: none;
+  }
+  @keyframes hero-zoom {
+    from { transform: scale(1.08); }
+  }
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: calc(var(--header-height) + 2rem) var(--page-margin) clamp(2.5rem, 6vw, 5rem);
+  }
+  .hero__content--bottom-left { justify-content: flex-end; align-items: flex-start; }
+  .hero__content--center { justify-content: center; align-items: center; text-align: center; }
+  .hero__content--bottom-center { justify-content: flex-end; align-items: center; text-align: center; }
+  .hero__content > * {
+    animation: rise 1s var(--ease) both;
+  }
+  .hero__content > :nth-child(2) { animation-delay: 0.12s; }
+  .hero__content > :nth-child(3) { animation-delay: 0.24s; }
+  .hero__content > :nth-child(4) { animation-delay: 0.36s; }
+  .hero__content > :nth-child(5) { animation-delay: 0.48s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(1.5rem); }
+  }
+  .hero .button {
+    background: #fff;
+    color: #1e1814;
+    border-color: #fff;
+  }
+  .hero .button:hover,
+  .hero .button--secondary {
+    background: transparent;
+    color: #fff;
+  }
+  .hero .field {
+    color: #fff;
+  }
+  .hero .field::placeholder {
+    color: rgb(255 255 255 / 0.7);
+  }
+  .hero__scroll {
+    position: absolute;
+    right: var(--page-margin);
+    bottom: 2rem;
+    z-index: 1;
+    writing-mode: vertical-rl;
+  }
+  @media (max-width: 749px) {
+    .hero__img--mobile {
+      display: block;
+    }
+    .hero__img--mobile ~ .hero__img,
+    .hero__img:has(+ .hero__img--mobile) {
+      display: none;
+    }
+    .hero__scroll {
+      display: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "blocks": [{ "type": "@theme" }, { "type": "@app" }],
+  "settings": [
+    { "type": "header", "content": "Media" },
+    { "type": "image_picker", "id": "image", "label": "Image", "info": "Landscape, at least 2400px wide." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Mobile image", "info": "Portrait 4:5 recommended." },
+    { "type": "video", "id": "video", "label": "Background video", "info": "Overrides the image. Keep under 15 seconds." },
+    { "type": "range", "id": "overlay", "label": "Darken image", "min": 0, "max": 80, "step": 5, "unit": "%", "default": 35 },
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        { "value": "full", "label": "Full screen" },
+        { "value": "large", "label": "Large" },
+        { "value": "medium", "label": "Medium" }
+      ],
+      "default": "full"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Content position",
+      "options": [
+        { "value": "bottom-left", "label": "Bottom left" },
+        { "value": "bottom-center", "label": "Bottom center" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "bottom-left"
+    },
+    { "type": "checkbox", "id": "overlap_header", "label": "Sit under a transparent header (first section only)", "default": true },
+    { "type": "checkbox", "id": "show_scroll", "label": "Show scroll cue", "default": true }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": {
+        "eyebrow": { "type": "eyebrow", "settings": { "text": "Collection 01 — Daily Bread Club", "show_dot": true } },
+        "heading": { "type": "heading", "settings": { "text": "Daily Bread <em>Club</em>", "size": "h-display", "tag": "h1", "max_width": 12 } },
+        "countdown": { "type": "countdown", "settings": { "size": "large" } },
+        "waitlist": { "type": "waitlist", "settings": {} }
+      },
+      "block_order": ["eyebrow", "heading", "countdown", "waitlist"]
+    }
+  ]
+}
+{% endschema %}
