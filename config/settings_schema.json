@@ -11,7 +11,7 @@
     "name": "Brand",
     "settings": [
       { "type": "image_picker", "id": "logo", "label": "Logo" },
-      { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 260, "step": 4, "unit": "px", "default": 130 },
+      { "type": "range", "id": "logo_width", "label": "Logo width", "min": 60, "max": 260, "step": 4, "unit": "px", "default": 132 },
       { "type": "image_picker", "id": "favicon", "label": "Favicon" }
     ]
   },
