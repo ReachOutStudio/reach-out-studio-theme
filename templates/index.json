@@ -51,7 +51,8 @@
         "height": "full",
         "position": "bottom-left",
         "overlap_header": true,
-        "show_scroll": true
+        "show_scroll": true,
+        "image": "shopify://shop_images/ros-hero.jpg"
       }
     },
     "marquee": {
@@ -98,7 +99,8 @@
         "caption": "06:40 — Peckham",
         "image_position": "left",
         "ratio": "4 / 5",
-        "scheme": "scheme-default"
+        "scheme": "scheme-default",
+        "image": "shopify://shop_images/ros-manna.jpg"
       }
     },
     "moments": {
@@ -109,7 +111,8 @@
           "settings": {
             "time": "06:30",
             "title": "Hallowed",
-            "text": "First light, before the noise. Gather what you need for today and say thank you for it."
+            "text": "First light, before the noise. Gather what you need for today and say thank you for it.",
+            "image": "shopify://shop_images/ros-moment-0630.jpg"
           }
         },
         "m2": {
@@ -117,7 +120,8 @@
           "settings": {
             "time": "13:00",
             "title": "Daily bread",
-            "text": "Lunch on the steps with whoever's there. There is always enough to break and pass on."
+            "text": "Lunch on the steps with whoever's there. There is always enough to break and pass on.",
+            "image": "shopify://shop_images/ros-moment-1300.jpg"
           }
         },
         "m3": {
@@ -125,7 +129,8 @@
           "settings": {
             "time": "19:30",
             "title": "Forgiven, forgiving",
-            "text": "The long table, where old debts are let go and a seat is always saved."
+            "text": "The long table, where old debts are let go and a seat is always saved.",
+            "image": "shopify://shop_images/ros-moment-1930.jpg"
           }
         }
       },
@@ -185,7 +190,8 @@
         "caption": "Sunday — South London",
         "image_position": "right",
         "ratio": "4 / 5",
-        "scheme": "scheme-surface"
+        "scheme": "scheme-surface",
+        "image": "shopify://shop_images/ros-table.jpg"
       }
     },
     "join": {
