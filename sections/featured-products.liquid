@@ -1,5 +1,5 @@
 {%- liquid
-  assign source = section.settings.collection | default: settings.drop_collection
+  assign source = section.settings.collection | default: settings.drop_collection | default: collections.all
   assign columns = section.settings.columns
 -%}
 
