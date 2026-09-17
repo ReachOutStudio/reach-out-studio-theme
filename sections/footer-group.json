@@ -7,10 +7,15 @@
       "settings": {
         "menu": "footer",
         "wordmark": "Reach Out",
-        "tagline": "Made in London.",
-        "show_payment_icons": true
+        "tagline": "Made in London. For the kingdom, the power and the glory.",
+        "show_payment_icons": true,
+        "signup_eyebrow": "Pull up a chair",
+        "signup_heading": "Join the table",
+        "signup_button": "Join"
       }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }
