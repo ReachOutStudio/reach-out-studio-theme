@@ -17,8 +17,7 @@
         "heading": "More from the studio",
         "limit": 4,
         "columns": 4,
-        "show_link": true,
-        "collection": "past-collections"
+        "show_link": true
       }
     }
   },
