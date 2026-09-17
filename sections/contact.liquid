@@ -1,0 +1,133 @@
+<div class="contact section-pad">
+  <div class="contact__intro reveal">
+    <p class="eyebrow muted">{{ section.settings.eyebrow }}</p>
+    <h1 class="h-1">{{ section.settings.heading }}</h1>
+    {%- if section.settings.text != blank -%}
+      <div class="story muted">{{ section.settings.text }}</div>
+    {%- endif -%}
+    <ul class="contact__details" role="list">
+      {%- if section.settings.email != blank -%}
+        <li><span class="eyebrow muted">{{ 'sections.contact.email_us' | t }}</span><a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a></li>
+      {%- endif -%}
+      {%- if section.settings.instagram != blank -%}
+        <li><span class="eyebrow muted">Instagram</span><a href="{{ section.settings.instagram }}" target="_blank" rel="noopener">{{ section.settings.instagram_label }}</a></li>
+      {%- endif -%}
+      {%- if section.settings.response_time != blank -%}
+        <li><span class="eyebrow muted">{{ 'sections.contact.response' | t }}</span><span>{{ section.settings.response_time }}</span></li>
+      {%- endif -%}
+    </ul>
+  </div>
+
+  <div class="contact__form reveal">
+    {%- form 'contact', id: 'ContactForm' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="story" role="status">{{ section.settings.success }}</p>
+      {%- else -%}
+        {%- if form.errors -%}
+          <p class="contact__error" role="alert">{{ 'sections.contact.error' | t }}</p>
+        {%- endif -%}
+        <div class="contact__row">
+          <label class="contact__field">
+            <span class="eyebrow">{{ 'sections.contact.name' | t }}</span>
+            <input class="field" type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}">
+          </label>
+          <label class="contact__field">
+            <span class="eyebrow">{{ 'sections.contact.email' | t }} *</span>
+            <input class="field" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}">
+          </label>
+        </div>
+        <label class="contact__field">
+          <span class="eyebrow">{{ 'sections.contact.order' | t }}</span>
+          <input class="field" type="text" name="contact[order_number]" placeholder="#1001">
+        </label>
+        <label class="contact__field">
+          <span class="eyebrow">{{ 'sections.contact.topic' | t }}</span>
+          <select class="field" name="contact[topic]">
+            <option>{{ 'sections.contact.topic_order' | t }}</option>
+            <option>{{ 'sections.contact.topic_sizing' | t }}</option>
+            <option>{{ 'sections.contact.topic_returns' | t }}</option>
+            <option>{{ 'sections.contact.topic_club' | t }}</option>
+            <option>{{ 'sections.contact.topic_other' | t }}</option>
+          </select>
+        </label>
+        <label class="contact__field">
+          <span class="eyebrow">{{ 'sections.contact.message' | t }} *</span>
+          <textarea class="field contact__textarea" name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+        </label>
+        <button type="submit" class="button">{{ section.settings.button }}</button>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .contact {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 6vw, 6rem);
+  }
+  .contact__intro {
+    display: grid;
+    align-content: start;
+    gap: 1.25rem;
+  }
+  .contact__details {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+  }
+  .contact__details li {
+    display: grid;
+    gap: 0.25rem;
+  }
+  .contact__form form {
+    display: grid;
+    gap: 1.25rem;
+  }
+  .contact__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .contact__field {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .contact__textarea {
+    min-height: 10rem;
+    padding: 1rem;
+    resize: vertical;
+  }
+  .contact__form .button {
+    justify-self: start;
+  }
+  .contact__error {
+    color: #c0533a;
+  }
+  @media (max-width: 899px) {
+    .contact,
+    .contact__row {
+      grid-template-columns: 1fr;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Contact" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pull up a chair" },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Questions about an order, sizing or the club? Write to us. A real person reads every message.</p>" },
+    { "type": "text", "id": "email", "label": "Email address", "default": "contatoreachout@gmail.com" },
+    { "type": "url", "id": "instagram", "label": "Instagram link" },
+    { "type": "text", "id": "instagram_label", "label": "Instagram handle", "default": "@reachoutstudio" },
+    { "type": "text", "id": "response_time", "label": "Response time", "default": "Within 1–2 working days" },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Send message" },
+    { "type": "text", "id": "success", "label": "Success message", "default": "Thank you. Your message is with us, and we'll reply within 1–2 working days." }
+  ],
+  "presets": [{ "name": "Contact form" }]
+}
+{% endschema %}

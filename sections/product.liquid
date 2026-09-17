@@ -5,6 +5,11 @@
   endcapture
   assign meaning = product.metafields.custom.meaning
   assign care = product.metafields.custom.care
+  assign size_table = product.metafields.custom.size_guide.value
+  assign has_size_guide = false
+  if size_table != blank or section.settings.size_guide != blank
+    assign has_size_guide = true
+  endif
 -%}
 
 <product-page class="pdp" data-section="{{ section.id }}">
@@ -61,7 +66,7 @@
               <fieldset class="option">
                 <legend class="option__legend eyebrow">
                   {{ option.name }}: <span data-option-value="{{ forloop.index0 }}">{{ option.selected_value }}</span>
-                  {%- if section.settings.size_guide != blank -%}
+                  {%- if has_size_guide -%}
                     {%- assign option_name = option.name | downcase -%}
                     {%- if option_name == 'size' -%}
                       <button type="button" class="option__guide" data-size-guide-open>{{ 'products.size_guide' | t }}</button>
@@ -130,13 +135,19 @@
     </div>
   </div>
 
-  {%- if section.settings.size_guide != blank -%}
+  {%- if has_size_guide -%}
     <dialog class="size-guide" data-size-guide aria-label="{{ 'products.size_guide' | t }}">
       <div class="size-guide__head">
-        <h2 class="h-3">{{ section.settings.size_guide.title }}</h2>
+        <h2 class="h-3">{{ 'products.size_guide' | t }}</h2>
         <button type="button" class="cart-drawer__close" data-size-guide-close aria-label="{{ 'accessibility.close' | t }}">✕</button>
       </div>
-      <div class="pdp__rte">{{ section.settings.size_guide.content }}</div>
+      {%- if size_table != blank -%}
+        <p class="muted size-guide__note">{{ 'products.size_guide_note' | t }}</p>
+        <div class="pdp__rte size-guide__table">{{ size_table }}</div>
+      {%- endif -%}
+      {%- if section.settings.size_guide != blank -%}
+        <div class="pdp__rte">{{ section.settings.size_guide.content }}</div>
+      {%- endif -%}
     </dialog>
   {%- endif -%}
 </product-page>
@@ -304,8 +315,36 @@
     border-bottom: 1px solid var(--color-border);
     text-align: left;
   }
+  .size-guide__table {
+    overflow-x: auto;
+  }
+  .size-guide__table table {
+    width: 100% !important;
+    min-width: 36rem;
+    font-size: 0.8125rem;
+  }
+  .size-guide__table td {
+    width: auto !important;
+    background: none !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    padding: 0.55rem 0.4rem;
+    color: var(--color-foreground);
+  }
+  .size-guide__table tr:first-child td {
+    font-weight: 600 !important;
+  }
+  .size-guide__table tr:nth-child(2) td {
+    color: var(--color-foreground-muted);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+  }
+  .size-guide__note {
+    margin-bottom: 1rem;
+    font-size: 0.8125rem;
+  }
   .size-guide {
-    width: min(40rem, calc(100vw - 2rem));
+    width: min(48rem, calc(100vw - 2rem));
     padding: 1.5rem;
     border: 0;
   }
