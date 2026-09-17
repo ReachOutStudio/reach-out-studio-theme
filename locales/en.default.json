@@ -22,7 +22,7 @@
     "decrease": "Decrease quantity",
     "increase": "Increase quantity",
     "quantity": "Quantity",
-    "empty": "Your bag is empty. There's always room at the table.",
+    "empty": "Your bag is empty. There's enough for today, so take a look.",
     "shipping_remaining": "You're {{ amount }} away from free delivery",
     "shipping_unlocked": "You've unlocked free UK delivery",
     "subtotal": "Subtotal",
@@ -57,7 +57,7 @@
     "use_at_checkout": "Use this gift card at checkout"
   },
   "password": {
-    "title": "Opening soon",
+    "title": "Your kingdom come",
     "password": "Password",
     "enter": "Enter",
     "enter_using": "Enter with password"
@@ -82,7 +82,7 @@
     "from": "From {{ price }}",
     "gallery": "Product images",
     "locked": "Members first",
-    "locked_long": "Part of Daily Bread Club. Join the waitlist to shop 24 hours before everyone else.",
+    "locked_long": "Part of Daily Bread Club. Join the waitlist and shop 24 hours before everyone else.",
     "placeholder": "Daily Bread Club",
     "refresh": "The drop is live — refresh the page to shop.",
     "size_guide": "Size guide",
@@ -104,7 +104,7 @@
       "members_only": "Members only",
       "no_account": "Not on the list yet?",
       "not_member": "This room is for waitlist members. Join below and you'll be in for the next drop.",
-      "not_yet": "You're on the list. Doors open here 24 hours before the drop.",
+      "not_yet": "You're on the list. The doors open here 24 hours before the drop.",
       "sign_in": "Sign in",
       "welcome": "Welcome back {{ name }}"
     },
@@ -125,12 +125,12 @@
       "scroll": "Scroll"
     },
     "waitlist": {
-      "already": "You're already on the list — see you at the table.",
+      "already": "You're already on the list. Your seat is saved.",
       "button": "Join",
       "email": "Email address",
       "first_name": "First name",
       "legal": "By joining you agree to receive emails from Reach Out Studio. Unsubscribe anytime.",
-      "success": "You're in. We'll save you a seat at the table."
+      "success": "You're in. Your seat is saved."
     }
   }
 }
