@@ -6,7 +6,7 @@
         "eyebrow": {
           "type": "eyebrow",
           "settings": {
-            "text": "Collection 01 \u2014 Waitlist open",
+            "text": "Collection 01 — Give us this day",
             "show_dot": true,
             "alignment": "flex-start"
           }
@@ -34,7 +34,7 @@
           "type": "waitlist",
           "settings": {
             "button_label": "Save my seat",
-            "success_message": "You're in. We'll save you a seat at the table.",
+            "success_message": "You're in. Your seat is saved.",
             "show_name": false,
             "max_width": 28
           }
@@ -57,7 +57,7 @@
     "marquee": {
       "type": "marquee",
       "settings": {
-        "text": "Give us this day",
+        "text": "Give us this day · Enough for today · New every morning",
         "speed": 30,
         "scheme": "scheme-default"
       }
@@ -68,13 +68,13 @@
         "eyebrow": {
           "type": "eyebrow",
           "settings": {
-            "text": "01 \u2014 The ritual"
+            "text": "01 — Manna"
           }
         },
         "heading": {
           "type": "heading",
           "settings": {
-            "text": "Before the city <em>wakes</em>",
+            "text": "Enough for <em>today</em>",
             "size": "h-1",
             "tag": "h2",
             "max_width": 14
@@ -83,7 +83,7 @@
         "text": {
           "type": "rich-text",
           "settings": {
-            "text": "<p>Every day starts the same way: with enough. Enough light to see by, enough bread to share, enough grace for whatever comes next.</p><p>Daily Bread Club is heavyweight clothing for those first quiet hours \u2014 and everything that follows.</p>",
+            "text": "<p>In the desert, bread fell every morning. Each person gathered what they needed for the day. Nobody had too much, nobody went short, and whatever was hoarded spoiled by dawn.</p><p>Daily Bread Club is heavyweight clothing for that kind of trust: enough for today, grateful for it, and ready to share it.</p>",
             "style": "story",
             "max_width": 38
           }
@@ -95,7 +95,7 @@
         "text"
       ],
       "settings": {
-        "caption": "06:40 \u2014 Peckham",
+        "caption": "06:40 — Peckham",
         "image_position": "left",
         "ratio": "4 / 5",
         "scheme": "scheme-default"
@@ -108,24 +108,24 @@
           "type": "moment",
           "settings": {
             "time": "06:30",
-            "title": "First light",
-            "text": "Kettle on. Phone down. A quiet minute before the day asks anything of you."
+            "title": "Hallowed",
+            "text": "First light, before the noise. Gather what you need for today and say thank you for it."
           }
         },
         "m2": {
           "type": "moment",
           "settings": {
             "time": "13:00",
-            "title": "Break bread",
-            "text": "Lunch on the steps with whoever is there. Nobody eats alone at this club."
+            "title": "Daily bread",
+            "text": "Lunch on the steps with whoever's there. There is always enough to break and pass on."
           }
         },
         "m3": {
           "type": "moment",
           "settings": {
             "time": "19:30",
-            "title": "The long table",
-            "text": "Friends, family, people you met today. Room for one more, always."
+            "title": "Forgiven, forgiving",
+            "text": "The long table, where old debts are let go and a seat is always saved."
           }
         }
       },
@@ -135,14 +135,14 @@
         "m3"
       ],
       "settings": {
-        "eyebrow": "02 \u2014 Give us this day",
-        "heading": "Three moments. One table."
+        "eyebrow": "02 — New every morning",
+        "heading": "Ordinary days. Set apart."
       }
     },
     "preview": {
       "type": "featured-products",
       "settings": {
-        "eyebrow": "03 \u2014 The first bake",
+        "eyebrow": "03 — The first bake",
         "heading": "Daily Bread Club",
         "limit": 4,
         "columns": 4,
@@ -155,13 +155,13 @@
         "eyebrow": {
           "type": "eyebrow",
           "settings": {
-            "text": "04 \u2014 The table"
+            "text": "04 — Your kingdom come"
           }
         },
         "heading": {
           "type": "heading",
           "settings": {
-            "text": "A club with <em>no velvet rope</em>",
+            "text": "A table with <em>room for one more</em>",
             "size": "h-1",
             "tag": "h2",
             "max_width": 14
@@ -170,7 +170,7 @@
         "text": {
           "type": "rich-text",
           "settings": {
-            "text": "<p>Membership costs nothing. Members get first access to every drop, invites to London gatherings, and a seat at the table whenever we meet.</p>",
+            "text": "<p>Membership costs nothing, because it was never ours to sell. Members shop every drop first, get invites to our London gatherings, and always have a place at the table.</p>",
             "style": "story",
             "max_width": 38
           }
@@ -182,7 +182,7 @@
         "text"
       ],
       "settings": {
-        "caption": "Sunday \u2014 South London",
+        "caption": "Sunday — South London",
         "image_position": "right",
         "ratio": "4 / 5",
         "scheme": "scheme-surface"
@@ -202,7 +202,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "text": "Save your seat at the <em>table</em>",
+            "text": "Your seat is already <em>saved</em>",
             "size": "h-1",
             "tag": "h2",
             "alignment": "center",
@@ -221,8 +221,8 @@
         "waitlist": {
           "type": "waitlist",
           "settings": {
-            "button_label": "Join the club",
-            "success_message": "You're in. We'll save you a seat at the table.",
+            "button_label": "Take my seat",
+            "success_message": "You're in. Your seat is saved.",
             "show_name": true,
             "max_width": 28
           }
