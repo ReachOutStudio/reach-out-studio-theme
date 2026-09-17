@@ -117,10 +117,10 @@
             <div class="pdp__rte">{{ care | metafield_tag }}</div>
           </details>
         {%- endif -%}
-        {%- if section.settings.delivery_text != blank -%}
+        {%- if section.settings.delivery_note != blank -%}
           <details>
             <summary class="eyebrow">{{ 'products.delivery' | t }}</summary>
-            <div class="pdp__rte">{{ section.settings.delivery_text }}</div>
+            <div class="pdp__rte">{{ section.settings.delivery_note }}</div>
           </details>
         {%- endif -%}
       </div>
@@ -430,7 +430,7 @@
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reach Out Studio" },
     { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show Apple Pay / Shop Pay buttons", "default": true },
     { "type": "page", "id": "size_guide", "label": "Size guide page" },
-    { "type": "richtext", "id": "delivery_text", "label": "Delivery & returns", "default": "<p>Made to order for you: please allow 3–7 working days for production, then 2–5 working days for UK delivery.</p><p>Returns within 14 days of delivery. Damaged or faulty items are replaced free of charge. <a href=\"/pages/contact\">Contact us</a></p>" },
+    { "type": "richtext", "id": "delivery_note", "label": "Delivery & returns", "default": "<p>Made to order for you: please allow 3–7 working days for production, then 2–5 working days for UK delivery.</p><p>Returns within 14 days of delivery. Damaged or faulty items are replaced free of charge. <a href=\"/pages/contact\">Contact us</a></p>" },
     { "type": "text", "id": "waitlist_label", "label": "Waitlist button (locked drop)", "default": "Notify me" }
   ],
   "disabled_on": { "groups": ["header", "footer"] }
