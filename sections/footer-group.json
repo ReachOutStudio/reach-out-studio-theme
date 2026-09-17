@@ -1,0 +1,16 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "menu": "footer",
+        "wordmark": "Reach Out",
+        "tagline": "Made in London.",
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

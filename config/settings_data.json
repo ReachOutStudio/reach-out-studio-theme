@@ -1,0 +1,24 @@
+{
+  "current": {
+    "type_heading_font": "oswald_n4",
+    "type_body_font": "work_sans_n4",
+    "type_story_font": "playfair_display_n4",
+    "background_color": "#F4EFE6",
+    "surface_color": "#EAE3D6",
+    "foreground_color": "#2B211C",
+    "accent_color": "#B8905A",
+    "inverse_background_color": "#1E1814",
+    "inverse_foreground_color": "#F4EFE6",
+    "max_page_width": "120rem",
+    "min_page_margin": 20,
+    "button_radius": 0,
+    "input_corner_radius": 0,
+    "drop_datetime": "2026-11-07T10:00:00+00:00",
+    "waitlist_tag": "dbc-waitlist",
+    "lock_drop_products": true,
+    "early_access_open": false
+  },
+  "presets": {
+    "Default": {}
+  }
+}

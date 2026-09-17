@@ -1,0 +1,102 @@
+{% doc %}
+  Email capture that creates a Shopify customer with marketing consent and tags.
+
+  @param {string} form_id - Unique id for the form on the page
+  @param {string} [button_label] - Submit button label
+  @param {string} [tags] - Comma-separated customer tags, defaults to the waitlist tag setting
+  @param {string} [success_message] - Message shown after a successful sign-up
+  @param {boolean} [show_name] - Show a first name field
+
+  @example
+  {% render 'waitlist-form', form_id: 'HeroWaitlist', button_label: 'Join the club' %}
+{% enddoc %}
+
+{%- liquid
+  assign customer_tags = tags | default: settings.waitlist_tag | default: 'dbc-waitlist'
+  assign customer_tags = 'newsletter,' | append: customer_tags
+  if button_label != blank
+    assign label = button_label
+  else
+    assign label = 'sections.waitlist.button' | t
+  endif
+-%}
+
+{%- form 'customer', id: form_id, class: 'waitlist-form' -%}
+  <input type="hidden" name="contact[tags]" value="{{ customer_tags | escape }}">
+  <input type="hidden" name="contact[accepts_marketing]" value="true">
+
+  {%- if form.posted_successfully? -%}
+    <p class="waitlist-form__success" role="status">
+      {%- if success_message != blank -%}{{ success_message }}{%- else -%}{{ 'sections.waitlist.success' | t }}{%- endif -%}
+    </p>
+  {%- else -%}
+    {%- if show_name -%}
+      <label class="visually-hidden" for="{{ form_id }}-name">{{ 'sections.waitlist.first_name' | t }}</label>
+      <input class="field" id="{{ form_id }}-name" type="text" name="contact[first_name]" autocomplete="given-name" placeholder="{{ 'sections.waitlist.first_name' | t }}">
+    {%- endif -%}
+    <div class="waitlist-form__row">
+      <label class="visually-hidden" for="{{ form_id }}-email">{{ 'sections.waitlist.email' | t }}</label>
+      <input
+        class="field"
+        id="{{ form_id }}-email"
+        type="email"
+        name="contact[email]"
+        autocomplete="email"
+        autocapitalize="off"
+        required
+        placeholder="{{ 'sections.waitlist.email' | t }}"
+        {% if form.errors %}aria-invalid="true" aria-describedby="{{ form_id }}-error"{% endif %}
+      >
+      <button type="submit" class="button">{{ label }}</button>
+    </div>
+    {%- if form.errors -%}
+      <p class="waitlist-form__error" id="{{ form_id }}-error" role="alert">
+        {%- if form.errors contains 'email' -%}
+          {{ 'sections.waitlist.already' | t }}
+        {%- else -%}
+          {{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}
+        {%- endif -%}
+      </p>
+    {%- endif -%}
+    <p class="waitlist-form__legal muted">{{ 'sections.waitlist.legal' | t }}</p>
+  {%- endif -%}
+{%- endform -%}
+
+{% stylesheet %}
+  .waitlist-form {
+    display: grid;
+    gap: 0.75rem;
+    width: 100%;
+  }
+  .waitlist-form__row {
+    display: flex;
+  }
+  .waitlist-form__row .field {
+    flex: 1;
+    min-width: 0;
+    border-right: 0;
+  }
+  .waitlist-form__row .field:focus {
+    border-right: 0;
+  }
+  .waitlist-form__legal {
+    font-size: 0.6875rem;
+  }
+  .waitlist-form__success {
+    font-family: var(--font-story--family);
+    font-size: 1.25rem;
+  }
+  .waitlist-form__error {
+    font-size: 0.8125rem;
+    color: #c0533a;
+  }
+  @media (max-width: 480px) {
+    .waitlist-form__row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .waitlist-form__row .field {
+      border-right: 1px solid var(--color-border);
+    }
+  }
+{% endstylesheet %}

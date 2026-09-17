@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta name="theme-color" content="{{ settings.background_color }}">
+    {% if settings.favicon %}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {% endif %}
+
+    {% render 'css-variables' %}
+
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {{ settings.type_heading_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
+    {{ settings.type_body_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
+
+    {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+    <script>
+      window.ROS_STRINGS = {
+        addToCart: {{ 'products.add_to_cart' | t | json }},
+        soldOut: {{ 'products.sold_out' | t | json }},
+        unavailable: {{ 'products.unavailable' | t | json }}
+      };
+    </script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name }}">
+    <a class="skip-link visually-hidden" href="#MainContent">{{ 'accessibility.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% section 'cart-drawer' %}
+  </body>
+</html>

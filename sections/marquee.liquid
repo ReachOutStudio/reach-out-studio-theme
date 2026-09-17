@@ -1,0 +1,61 @@
+<div class="marquee {{ section.settings.scheme }} full-width" style="--speed: {{ section.settings.speed }}s">
+  <div class="marquee__track" aria-hidden="true">
+    {%- for i in (1..2) -%}
+      <div class="marquee__group">
+        {%- for i in (1..4) -%}
+          <span class="h-2">{{ section.settings.text }}</span>
+          <span class="marquee__sep">✦</span>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+  <p class="visually-hidden">{{ section.settings.text }}</p>
+</div>
+
+{% stylesheet %}
+  .marquee {
+    overflow: hidden;
+    padding-block: 1.25rem;
+    border-block: 1px solid var(--color-border);
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--speed) linear infinite;
+  }
+  .marquee__group {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 2rem;
+    white-space: nowrap;
+  }
+  .marquee__sep {
+    color: var(--color-accent);
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Scrolling text",
+  "settings": [
+    { "type": "text", "id": "text", "label": "Text", "default": "Give us this day" },
+    { "type": "range", "id": "speed", "label": "Loop duration", "min": 10, "max": 60, "step": 5, "unit": "s", "default": 30 },
+    {
+      "type": "select",
+      "id": "scheme",
+      "label": "Colour scheme",
+      "options": [
+        { "value": "scheme-default", "label": "Bone" },
+        { "value": "scheme-surface", "label": "Surface" },
+        { "value": "scheme-inverse", "label": "Espresso" }
+      ],
+      "default": "scheme-default"
+    }
+  ],
+  "presets": [{ "name": "Scrolling text" }]
+}
+{% endschema %}

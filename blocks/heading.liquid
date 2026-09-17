@@ -1,0 +1,59 @@
+{% doc %}
+  Renders a display heading.
+
+  @example
+  {% content_for 'block', type: 'heading', id: 'heading' %}
+{% enddoc %}
+
+<{{ block.settings.tag }} class="heading-block {{ block.settings.size }}" style="--align: {{ block.settings.alignment }}; --max: {{ block.settings.max_width }}ch" {{ block.shopify_attributes }}>
+  {{- block.settings.text -}}
+</{{ block.settings.tag }}>
+
+{% stylesheet %}
+  .heading-block {
+    text-align: var(--align);
+    max-width: var(--max);
+  }
+  .heading-block em {
+    font-family: var(--font-story--family);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Heading",
+  "settings": [
+    { "type": "inline_richtext", "id": "text", "label": "Text", "info": "Italic text switches to the story serif.", "default": "Daily Bread Club" },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Size",
+      "options": [
+        { "value": "h-display", "label": "Display" },
+        { "value": "h-1", "label": "Large" },
+        { "value": "h-2", "label": "Medium" },
+        { "value": "h-3", "label": "Small" }
+      ],
+      "default": "h-1"
+    },
+    {
+      "type": "select",
+      "id": "tag",
+      "label": "HTML tag",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "p", "label": "Paragraph" }
+      ],
+      "default": "h2"
+    },
+    { "type": "text_alignment", "id": "alignment", "label": "Alignment", "default": "left" },
+    { "type": "range", "id": "max_width", "label": "Max width", "min": 8, "max": 40, "step": 1, "unit": "ch", "default": 20 }
+  ],
+  "presets": [{ "name": "Heading" }]
+}
+{% endschema %}

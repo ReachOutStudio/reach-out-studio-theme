@@ -1,0 +1,112 @@
+<div class="moments section-pad">
+  {%- if section.settings.heading != blank -%}
+    <div class="moments__head reveal">
+      <p class="eyebrow muted">{{ section.settings.eyebrow }}</p>
+      <h2 class="h-1">{{ section.settings.heading }}</h2>
+    </div>
+  {%- endif -%}
+  <ol class="moments__grid" role="list">
+    {%- for block in section.blocks -%}
+      <li class="moment reveal" style="transition-delay: {{ forloop.index0 | times: 120 }}ms" {{ block.shopify_attributes }}>
+        <div class="moment__media">
+          {%- if block.settings.image -%}
+            {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 33vw, 85vw', widths: '500, 750, 1000' }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+          <span class="moment__time eyebrow">{{ block.settings.time }}</span>
+        </div>
+        <h3 class="h-3">{{ block.settings.title }}</h3>
+        <p class="muted">{{ block.settings.text }}</p>
+      </li>
+    {%- endfor -%}
+  </ol>
+</div>
+
+{% stylesheet %}
+  .moments__head {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+  }
+  .moments__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 2rem);
+    padding: 0;
+    list-style: none;
+  }
+  .moment {
+    display: grid;
+    align-content: start;
+    gap: 0.6rem;
+  }
+  .moment__media {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+  .moment__media img,
+  .moment__media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .moment__time {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    padding: 0.3rem 0.55rem;
+    background: var(--color-background);
+  }
+  @media (max-width: 899px) {
+    .moments__grid {
+      grid-auto-flow: column;
+      grid-template-columns: none;
+      grid-auto-columns: 80%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(var(--page-margin) * -1);
+      padding-inline: var(--page-margin);
+      scrollbar-width: none;
+    }
+    .moment {
+      scroll-snap-align: start;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Moments",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Give us this day" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Three moments. One table." }
+  ],
+  "blocks": [
+    {
+      "type": "moment",
+      "name": "Moment",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "time", "label": "Time label", "default": "06:30" },
+        { "type": "text", "id": "title", "label": "Title", "default": "First light" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Kettle on. Phone down. A quiet minute before the day asks anything of you." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Moments",
+      "blocks": [
+        { "type": "moment", "settings": { "time": "06:30", "title": "First light", "text": "Kettle on. Phone down. A quiet minute before the day asks anything of you." } },
+        { "type": "moment", "settings": { "time": "13:00", "title": "Break bread", "text": "Lunch on the steps with whoever is there. Nobody eats alone at this club." } },
+        { "type": "moment", "settings": { "time": "19:30", "title": "The long table", "text": "Friends, family, people you met today. Room for one more, always." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

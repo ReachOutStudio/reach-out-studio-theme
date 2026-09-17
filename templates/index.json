@@ -1,0 +1,65 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "eyebrow": { "type": "eyebrow", "settings": { "text": "Collection 01 — Waitlist open", "show_dot": true, "alignment": "flex-start" } },
+        "heading": { "type": "heading", "settings": { "text": "Daily Bread <em>Club</em>", "size": "h-display", "tag": "h1", "alignment": "left", "max_width": 12 } },
+        "countdown": { "type": "countdown", "settings": { "size": "large", "live_text": "The table is set.", "live_button": "Shop the drop", "live_link": "shopify://collections/daily-bread-club" } },
+        "waitlist": { "type": "waitlist", "settings": { "button_label": "Save my seat", "success_message": "You're in. We'll save you a seat at the table.", "show_name": false, "max_width": 28 } }
+      },
+      "block_order": ["eyebrow", "heading", "countdown", "waitlist"],
+      "settings": { "overlay": 35, "height": "full", "position": "bottom-left", "overlap_header": true, "show_scroll": true }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": { "text": "Give us this day", "speed": 30, "scheme": "scheme-default" }
+    },
+    "ritual": {
+      "type": "image-with-text",
+      "blocks": {
+        "eyebrow": { "type": "eyebrow", "settings": { "text": "01 — The ritual" } },
+        "heading": { "type": "heading", "settings": { "text": "Before the city <em>wakes</em>", "size": "h-1", "tag": "h2", "max_width": 14 } },
+        "text": { "type": "rich-text", "settings": { "text": "<p>Every day starts the same way: with enough. Enough light to see by, enough bread to share, enough grace for whatever comes next.</p><p>Daily Bread Club is heavyweight clothing for those first quiet hours — and everything that follows.</p>", "style": "story", "max_width": 38 } }
+      },
+      "block_order": ["eyebrow", "heading", "text"],
+      "settings": { "caption": "06:40 — Peckham", "image_position": "left", "ratio": "4 / 5", "scheme": "scheme-default" }
+    },
+    "moments": {
+      "type": "moments",
+      "blocks": {
+        "m1": { "type": "moment", "settings": { "time": "06:30", "title": "First light", "text": "Kettle on. Phone down. A quiet minute before the day asks anything of you." } },
+        "m2": { "type": "moment", "settings": { "time": "13:00", "title": "Break bread", "text": "Lunch on the steps with whoever is there. Nobody eats alone at this club." } },
+        "m3": { "type": "moment", "settings": { "time": "19:30", "title": "The long table", "text": "Friends, family, people you met today. Room for one more, always." } }
+      },
+      "block_order": ["m1", "m2", "m3"],
+      "settings": { "eyebrow": "02 — Give us this day", "heading": "Three moments. One table." }
+    },
+    "preview": {
+      "type": "featured-products",
+      "settings": { "eyebrow": "03 — The first bake", "heading": "Daily Bread Club", "limit": 4, "columns": 4, "show_link": false }
+    },
+    "table": {
+      "type": "image-with-text",
+      "blocks": {
+        "eyebrow": { "type": "eyebrow", "settings": { "text": "04 — The table" } },
+        "heading": { "type": "heading", "settings": { "text": "A club with <em>no velvet rope</em>", "size": "h-1", "tag": "h2", "max_width": 14 } },
+        "text": { "type": "rich-text", "settings": { "text": "<p>Membership costs nothing. Members get first access to every drop, invites to London gatherings, and a seat at the table whenever we meet.</p>", "style": "story", "max_width": 38 } }
+      },
+      "block_order": ["eyebrow", "heading", "text"],
+      "settings": { "caption": "Sunday — South London", "image_position": "right", "ratio": "4 / 5", "scheme": "scheme-surface" }
+    },
+    "join": {
+      "type": "content-band",
+      "blocks": {
+        "eyebrow": { "type": "eyebrow", "settings": { "text": "Members shop 24 hours early", "show_dot": true, "alignment": "center" } },
+        "heading": { "type": "heading", "settings": { "text": "Save your seat at the <em>table</em>", "size": "h-1", "tag": "h2", "alignment": "center", "max_width": 16 } },
+        "countdown": { "type": "countdown", "settings": { "size": "small", "live_text": "The table is set.", "live_button": "Shop the drop", "live_link": "shopify://collections/daily-bread-club" } },
+        "waitlist": { "type": "waitlist", "settings": { "button_label": "Join the club", "success_message": "You're in. We'll save you a seat at the table.", "show_name": true, "max_width": 28 } }
+      },
+      "block_order": ["eyebrow", "heading", "countdown", "waitlist"],
+      "settings": { "scheme": "scheme-inverse", "alignment": "center" }
+    }
+  },
+  "order": ["hero", "marquee", "ritual", "moments", "preview", "table", "join"]
+}

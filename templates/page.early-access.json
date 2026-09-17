@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "early-access",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

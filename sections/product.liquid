@@ -1,0 +1,417 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  capture is_locked
+    render 'drop-locked', product: product
+  endcapture
+  assign meaning = product.metafields.custom.meaning
+  assign care = product.metafields.custom.care
+-%}
+
+<product-page class="pdp" data-section="{{ section.id }}">
+  <div class="pdp__gallery" aria-label="{{ 'products.gallery' | t }}">
+    {%- for media in product.media -%}
+      <div class="pdp__media{% if forloop.first %} pdp__media--first{% endif %}" data-media-id="{{ media.id }}">
+        {%- case media.media_type -%}
+          {%- when 'image' -%}
+            {{ media | image_url: width: 1800 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 30vw, 100vw', widths: '600, 900, 1200, 1800', preload: forloop.first }}
+          {%- when 'video' -%}
+            {{ media | video_tag: autoplay: true, loop: true, muted: true, playsinline: true, controls: false, image_size: '1200x' }}
+          {%- else -%}
+            {{ media | media_tag }}
+        {%- endcase -%}
+      </div>
+    {%- else -%}
+      <div class="pdp__media">{{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+      <div class="pdp__media">{{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+    {%- endfor -%}
+  </div>
+
+  <div class="pdp__info">
+    <div class="pdp__sticky">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow muted">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h1 class="h-2">{{ product.title }}</h1>
+
+      {%- if is_locked == 'true' -%}
+        <p class="muted">{{ 'products.locked_long' | t }}</p>
+        <drop-countdown class="countdown countdown--small" data-end="{{ settings.drop_datetime | escape }}">
+          <div class="countdown__units" data-countdown-units>
+            <div class="countdown__unit"><span data-unit="days">00</span><small class="eyebrow">{{ 'sections.countdown.days' | t }}</small></div>
+            <div class="countdown__unit"><span data-unit="hours">00</span><small class="eyebrow">{{ 'sections.countdown.hours' | t }}</small></div>
+            <div class="countdown__unit"><span data-unit="minutes">00</span><small class="eyebrow">{{ 'sections.countdown.minutes' | t }}</small></div>
+            <div class="countdown__unit"><span data-unit="seconds">00</span><small class="eyebrow">{{ 'sections.countdown.seconds' | t }}</small></div>
+          </div>
+          <div data-countdown-live hidden><p class="muted">{{ 'products.refresh' | t }}</p></div>
+        </drop-countdown>
+        {% render 'waitlist-form', form_id: 'ProductWaitlist', button_label: section.settings.waitlist_label %}
+      {%- else -%}
+        <p class="pdp__price price" data-price>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <s class="muted">{{ current_variant.compare_at_price | money }}</s>
+          {%- endif -%}
+          <span>{{ current_variant.price | money }}</span>
+        </p>
+
+        {%- form 'product', product, class: 'pdp__form', data-ajax-cart: '', novalidate: 'novalidate' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <fieldset class="option">
+                <legend class="option__legend eyebrow">
+                  {{ option.name }}: <span data-option-value="{{ forloop.index0 }}">{{ option.selected_value }}</span>
+                  {%- if section.settings.size_guide != blank -%}
+                    {%- assign option_name = option.name | downcase -%}
+                    {%- if option_name == 'size' -%}
+                      <button type="button" class="option__guide" data-size-guide-open>{{ 'products.size_guide' | t }}</button>
+                    {%- endif -%}
+                  {%- endif -%}
+                </legend>
+                <div class="option__values">
+                  {%- for value in option.values -%}
+                    <label class="option__value{% unless value.available %} is-unavailable{% endunless %}">
+                      <input
+                        type="radio"
+                        name="option-{{ forloop.parentloop.index0 }}"
+                        value="{{ value | escape }}"
+                        data-option-index="{{ forloop.parentloop.index0 }}"
+                        {% if value.selected %}checked{% endif %}
+                      >
+                      <span>{{ value }}</span>
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <button type="submit" class="button button--full" data-add-button {% unless current_variant.available %}disabled{% endunless %}>
+            {%- if current_variant.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+          </button>
+          <p class="pdp__error" data-form-error role="alert"></p>
+          {%- if section.settings.show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+        {%- endform -%}
+
+        <script type="application/json" data-product-json>
+          {{ product.variants | json }}
+        </script>
+      {%- endif -%}
+
+      {%- if meaning != blank -%}
+        <aside class="pdp__meaning scheme-surface">
+          <p class="eyebrow">{{ section.settings.meaning_label }}</p>
+          <div class="story">{{ meaning | metafield_tag }}</div>
+        </aside>
+      {%- endif -%}
+
+      <div class="pdp__accordions">
+        {%- if product.description != blank -%}
+          <details open>
+            <summary class="eyebrow">{{ 'products.details' | t }}</summary>
+            <div class="pdp__rte">{{ product.description }}</div>
+          </details>
+        {%- endif -%}
+        {%- if care != blank -%}
+          <details>
+            <summary class="eyebrow">{{ 'products.care' | t }}</summary>
+            <div class="pdp__rte">{{ care | metafield_tag }}</div>
+          </details>
+        {%- endif -%}
+        {%- if section.settings.delivery_text != blank -%}
+          <details>
+            <summary class="eyebrow">{{ 'products.delivery' | t }}</summary>
+            <div class="pdp__rte">{{ section.settings.delivery_text }}</div>
+          </details>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.settings.size_guide != blank -%}
+    <dialog class="size-guide" data-size-guide aria-label="{{ 'products.size_guide' | t }}">
+      <div class="size-guide__head">
+        <h2 class="h-3">{{ section.settings.size_guide.title }}</h2>
+        <button type="button" class="cart-drawer__close" data-size-guide-close aria-label="{{ 'accessibility.close' | t }}">✕</button>
+      </div>
+      <div class="pdp__rte">{{ section.settings.size_guide.content }}</div>
+    </dialog>
+  {%- endif -%}
+</product-page>
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>
+
+{% stylesheet %}
+  .pdp {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(20rem, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-block: 1rem 4rem;
+  }
+  .pdp__gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .pdp__media {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+  .pdp__media--first {
+    grid-column: 1 / -1;
+  }
+  .pdp__media img,
+  .pdp__media video,
+  .pdp__media svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pdp__sticky {
+    position: sticky;
+    top: calc(var(--header-height) + 1.5rem);
+    display: grid;
+    gap: 1.5rem;
+  }
+  .pdp__price {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 1.125rem;
+  }
+  .pdp__form {
+    display: grid;
+    gap: 1.5rem;
+  }
+  .option {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    border: 0;
+  }
+  .option__legend {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+  .option__guide {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    text-decoration: underline;
+  }
+  .option__values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .option__value {
+    position: relative;
+  }
+  .option__value input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+  .option__value span {
+    display: grid;
+    place-items: center;
+    min-width: 3.25rem;
+    height: 2.75rem;
+    padding-inline: 0.9rem;
+    border: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+  }
+  .option__value:hover span {
+    border-color: var(--color-foreground);
+  }
+  .option__value input:checked + span {
+    background: var(--color-foreground);
+    border-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+  .option__value input:focus-visible + span {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .option__value.is-unavailable span {
+    color: var(--color-foreground-muted);
+    background: linear-gradient(to top right, transparent calc(50% - 0.5px), var(--color-border) 50%, transparent calc(50% + 0.5px));
+  }
+  .button[aria-busy='true'] {
+    opacity: 0.6;
+  }
+  .pdp__error {
+    font-size: 0.8125rem;
+    color: #c0533a;
+  }
+  .pdp__meaning {
+    display: grid;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-left: 2px solid var(--color-accent);
+  }
+  .pdp__meaning .story {
+    font-size: 1.125rem;
+  }
+  .pdp__accordions details {
+    border-top: 1px solid var(--color-border);
+  }
+  .pdp__accordions details:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .pdp__accordions summary {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1.1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .pdp__accordions summary::-webkit-details-marker {
+    display: none;
+  }
+  .pdp__accordions summary::after {
+    content: '+';
+  }
+  .pdp__accordions details[open] summary::after {
+    content: '−';
+  }
+  .pdp__rte {
+    padding-bottom: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--color-foreground-muted);
+  }
+  .pdp__rte > * + * {
+    margin-top: 0.75em;
+  }
+  .pdp__rte table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .pdp__rte td,
+  .pdp__rte th {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+  }
+  .size-guide {
+    width: min(40rem, calc(100vw - 2rem));
+    padding: 1.5rem;
+    border: 0;
+  }
+  .size-guide::backdrop {
+    background: rgb(20 15 12 / 0.45);
+  }
+  .size-guide__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 899px) {
+    .pdp {
+      grid-template-columns: 1fr;
+      padding-top: 0;
+    }
+    .pdp__gallery {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      margin-inline: calc(var(--page-margin) * -1);
+      gap: 2px;
+      scrollbar-width: none;
+    }
+    .pdp__media {
+      flex: 0 0 88%;
+      scroll-snap-align: start;
+    }
+    .pdp__sticky {
+      position: static;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  if (!customElements.get('product-page')) {
+    customElements.define(
+      'product-page',
+      class extends HTMLElement {
+        connectedCallback() {
+          const json = this.querySelector('[data-product-json]');
+          this.variants = json ? JSON.parse(json.textContent) : [];
+          this.addEventListener('change', (event) => {
+            if (event.target.matches('[data-option-index]')) this.onOptionChange();
+          });
+          const guide = this.querySelector('[data-size-guide]');
+          this.querySelector('[data-size-guide-open]')?.addEventListener('click', () => guide?.showModal());
+          this.querySelector('[data-size-guide-close]')?.addEventListener('click', () => guide?.close());
+          guide?.addEventListener('click', (event) => {
+            if (event.target === guide) guide.close();
+          });
+        }
+        onOptionChange() {
+          const selected = [...this.querySelectorAll('[data-option-index]:checked')].map((input) => input.value);
+          selected.forEach((value, index) => {
+            const label = this.querySelector(`[data-option-value="${index}"]`);
+            if (label) label.textContent = value;
+          });
+          const variant = this.variants.find((v) => v.options.every((opt, i) => opt === selected[i]));
+          const button = this.querySelector('[data-add-button]');
+          const idInput = this.querySelector('[data-variant-id]');
+          if (!variant) {
+            button.disabled = true;
+            button.textContent = window.ROS_STRINGS?.unavailable || 'Unavailable';
+            return;
+          }
+          idInput.value = variant.id;
+          button.disabled = !variant.available;
+          button.textContent = variant.available
+            ? window.ROS_STRINGS?.addToCart || 'Add to bag'
+            : window.ROS_STRINGS?.soldOut || 'Sold out';
+          const url = new URL(window.location.href);
+          url.searchParams.set('variant', variant.id);
+          history.replaceState({}, '', url);
+          this.refreshPrice(url);
+          if (variant.featured_media) {
+            const media = this.querySelector(`[data-media-id="${variant.featured_media.id}"]`);
+            media?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+          }
+        }
+        async refreshPrice(url) {
+          const sectionUrl = new URL(url);
+          sectionUrl.searchParams.set('section_id', this.dataset.section);
+          const html = await fetch(sectionUrl).then((r) => r.text());
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const fresh = doc.querySelector('[data-price]');
+          const current = this.querySelector('[data-price]');
+          if (fresh && current) current.replaceWith(fresh);
+        }
+      }
+    );
+  }
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Reach Out Studio" },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show Apple Pay / Shop Pay buttons", "default": true },
+    { "type": "page", "id": "size_guide", "label": "Size guide page" },
+    { "type": "text", "id": "meaning_label", "label": "Meaning block label", "default": "The meaning", "info": "Content comes from the product metafield custom.meaning." },
+    { "type": "richtext", "id": "delivery_text", "label": "Delivery & returns", "default": "<p>UK delivery in 2–4 working days. Free over £75. Returns accepted within 30 days.</p>" },
+    { "type": "text", "id": "waitlist_label", "label": "Waitlist button (locked drop)", "default": "Notify me" }
+  ],
+  "disabled_on": { "groups": ["header", "footer"] }
+}
+{% endschema %}
