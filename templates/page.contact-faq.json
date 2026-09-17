@@ -1,0 +1,89 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact",
+      "settings": {
+        "eyebrow": "Contact",
+        "heading": "Pull up a chair",
+        "text": "<p>Questions about an order, sizing or the club? Write to us. A real person reads every message.</p>",
+        "email": "contatoreachout@gmail.com",
+        "instagram_label": "@reachoutstudio",
+        "response_time": "Within 1–2 working days",
+        "button": "Send message",
+        "success": "Thank you. Your message is with us, and we'll reply within 1–2 working days."
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "When will my order arrive?",
+            "answer": "<p>Every piece is made to order for you, so please allow 2–6 working days for us to make it. UK delivery then takes 7–15 working days, and it's free on orders over £120. You'll get a tracking link by email as soon as your order ships.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Do you ship outside the UK?",
+            "answer": "<p>Yes, we ship to most countries. International delivery usually takes 8–20 working days after your piece is made, and exact costs are shown at checkout before you pay. Import duties or taxes may apply outside the UK.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "How do I find my size?",
+            "answer": "<p>Every product page has a size guide with measurements in cm and inches. Our pieces have a regular fit; for a more relaxed look, go one size up. Still unsure? Send us your height and usual size and we'll help.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return or exchange something?",
+            "answer": "<p>Yes. You have 14 days from delivery to let us know you'd like to return an item. Send it back unworn, unwashed and with its tags, and we'll refund you once it arrives. Return postage is paid by you unless the item is faulty.</p><p>If your piece arrives damaged, faulty or incorrect, email us with your order number and a photo and we'll replace or refund it at no cost to you.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "How do I care for my pieces?",
+            "answer": "<p>Wash inside out at 30°C on a gentle cycle, don't bleach, tumble dry low and never iron directly on the print. Care details for each piece are on its product page.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "What is the Daily Bread Club?",
+            "answer": "<p>Our first collection, and a community. Joining the waitlist is free: members shop every drop 24 hours early, get invites to our London gatherings, and always have a seat at the table.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "question": "Can I change or cancel my order?",
+            "answer": "<p>Email us as soon as possible. Orders go into production quickly, so we can only change or cancel them within 12 hours of purchase.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7"
+      ],
+      "settings": {
+        "eyebrow": "Good to know",
+        "heading": "Questions",
+        "scheme": "scheme-surface"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "faq"
+  ]
+}
